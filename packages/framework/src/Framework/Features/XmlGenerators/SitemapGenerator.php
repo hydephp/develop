@@ -19,8 +19,9 @@ use Illuminate\Support\Carbon;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Facades\Routes;
 
-use function is_a;
+use function array_map;
 use function date;
+use function in_array;
 
 /**
  * @see https://www.sitemaps.org/protocol.html
@@ -72,7 +73,11 @@ class SitemapGenerator extends BaseXmlGenerator
     {
         $priority = 0.5;
 
-        if ($this->isPageType($pageClass, [BladePage::class, MarkdownPage::class, DocumentationPage::class])) {
+        if (in_array($pageClass, array_map(Hyde::resolvePageClass(...), [
+            BladePage::class,
+            MarkdownPage::class,
+            DocumentationPage::class,
+        ]), true)) {
             $priority = 0.9;
 
             if ($identifier === 'index') {
@@ -80,7 +85,11 @@ class SitemapGenerator extends BaseXmlGenerator
             }
         }
 
-        if ($this->isPageType($pageClass, [MarkdownPost::class, HtmlPage::class]) || $pageClass === InMemoryPage::class) {
+        if (in_array($pageClass, array_map(Hyde::resolvePageClass(...), [
+            MarkdownPost::class,
+            InMemoryPage::class,
+            HtmlPage::class,
+        ]), true)) {
             $priority = 0.75;
         }
 
@@ -99,7 +108,11 @@ class SitemapGenerator extends BaseXmlGenerator
     {
         $frequency = 'weekly';
 
-        if ($this->isPageType($pageClass, [BladePage::class, MarkdownPage::class, DocumentationPage::class])) {
+        if (in_array($pageClass, array_map(Hyde::resolvePageClass(...), [
+            BladePage::class,
+            MarkdownPage::class,
+            DocumentationPage::class,
+        ]), true)) {
             $frequency = 'daily';
         }
 
@@ -114,20 +127,5 @@ class SitemapGenerator extends BaseXmlGenerator
     protected function getRouteInformation(Route $route): array
     {
         return [$route->getPageClass(), $route->getPage()->getIdentifier()];
-    }
-
-    /**
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
-     * @param  array<class-string<\Hyde\Pages\Concerns\HydePage>>  $pageTypes
-     */
-    private function isPageType(string $pageClass, array $pageTypes): bool
-    {
-        foreach ($pageTypes as $pageType) {
-            if (is_a($pageClass, $pageType, true)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

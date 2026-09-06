@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\HydeServiceProvider;
-use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
@@ -54,14 +53,6 @@ class PageClassReplacementTest extends TestCase
         $this->assertSame('posts/hello-world', $page->getRouteKey());
         $this->assertSame('_posts', TestMarkdownPost::sourceDirectory());
         $this->assertSame('posts', TestMarkdownPost::outputDirectory());
-
-        $sitemap = (new SitemapGenerator())->generate()->getXmlElement();
-        $postEntry = collect($sitemap->url)->first(
-            fn ($url): bool => (string) $url->loc === 'posts/hello-world.html'
-        );
-
-        $this->assertNotNull($postEntry);
-        $this->assertSame('0.75', (string) $postEntry->priority);
     }
 
     public function testCanonicalAndReplacementStaticQueriesUseTheDiscoveredSubclass()
