@@ -146,7 +146,8 @@ class AppServiceProvider extends ServiceProvider
 ```
 
 Hyde then uses `MyMarkdownPost` when discovering and parsing Markdown posts. The replacement must extend the original
-page class and keep its constructor compatible with the named arguments Hyde uses when parsing that page type.
+page class. Do not change its constructor signature: Hyde passes `identifier`, `matter`, and `markdown` to Markdown page
+replacements, `identifier` and `matter` to Blade page replacements, and a positional identifier to other page types.
 Replacement classes are intended to customize page behavior; changing their filesystem or routing configuration is not
 supported. Use Hyde's existing configuration options to customize source and output directories. Normal
 `instanceof MarkdownPost` checks continue to work.
