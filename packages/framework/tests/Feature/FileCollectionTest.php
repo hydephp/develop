@@ -69,6 +69,16 @@ class FileCollectionTest extends TestCase
         $this->restoreDefaultPages();
     }
 
+    public function testGetFilesIncludesSubclassesOfTheRequestedPageClass()
+    {
+        $collection = FileCollection::init(Hyde::getInstance());
+        $collection->addFile(new SourceFile('_posts/post.md', MarkdownPost::class));
+        $collection->addFile(new SourceFile('_posts/special.md', SpecialMarkdownPost::class));
+
+        $this->assertCount(2, $collection->getFiles(MarkdownPost::class));
+        $this->assertCount(1, $collection->getFiles(SpecialMarkdownPost::class));
+    }
+
     public function testBladePagesAreDiscovered()
     {
         $this->file('_pages/foo.blade.php');
@@ -120,4 +130,8 @@ class FileCollectionTest extends TestCase
         $this->assertEquals(new SourceFile('_pages/foo/bar.md', MarkdownPage::class), $collection->get('_pages/foo/bar.md'));
         $this->assertEquals(new SourceFile('_pages/foo/bar/baz.md', MarkdownPage::class), $collection->get('_pages/foo/bar/baz.md'));
     }
+}
+
+class SpecialMarkdownPost extends MarkdownPost
+{
 }

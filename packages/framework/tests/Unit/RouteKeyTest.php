@@ -131,6 +131,12 @@ class RouteKeyTest extends UnitTestCase
         $this->assertSame('docs/test', RouteKey::fromPage(DocumentationPage::class, '01-test')->get());
     }
 
+    public function testCoreIdentifierPrefixesAreExtractedForPageSubclasses()
+    {
+        $this->assertSame('docs/test', RouteKey::fromPage(RouteKeyDocumentationPage::class, '01-test')->get());
+        $this->assertSame('posts/test', RouteKey::fromPage(RouteKeyMarkdownPost::class, '2024-01-02-test')->get());
+    }
+
     public function testItExtractsCoreIdentifierPartFromNumericalFilenamePrefixWithKebabCaseSyntax()
     {
         $this->assertSame('docs/foo', RouteKey::fromPage(DocumentationPage::class, '01-foo')->get());
@@ -193,4 +199,12 @@ class InMemoryPageWithCustomOutputConfiguration extends InMemoryPage
 {
     public static string $outputDirectory = 'api';
     public static string $outputExtension = '.json';
+}
+
+class RouteKeyDocumentationPage extends DocumentationPage
+{
+}
+
+class RouteKeyMarkdownPost extends MarkdownPost
+{
 }

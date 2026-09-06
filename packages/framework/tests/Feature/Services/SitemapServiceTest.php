@@ -11,6 +11,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Hyde\Foundation\HydeKernel;
@@ -69,6 +70,35 @@ class SitemapServiceTest extends TestCase
         $this->assertCount(3, $service->getXmlElement()->url);
 
         Filesystem::unlink('_posts/foo.md');
+    }
+
+    public function testPageClassReplacementsRetainSitemapMetadata()
+    {
+        Hyde::replacePageClass(MarkdownPost::class, SitemapReplacementMarkdownPost::class);
+        $this->markdown('_posts/2024-01-02-hello-world.md', 'Hello world');
+
+        $sitemap = (new SitemapGenerator())->generate()->getXmlElement();
+        $postEntry = collect($sitemap->url)->first(
+            fn ($url): bool => (string) $url->loc === 'posts/hello-world.html'
+        );
+
+        $this->assertNotNull($postEntry);
+        $this->assertSame('0.75', (string) $postEntry->priority);
+    }
+
+    public function testUnregisteredPageSubclassesUseDefaultSitemapMetadata()
+    {
+        // Only registered replacements inherit canonical sitemap metadata; unrelated subclasses keep the defaults.
+        Routes::addRoute(new Route(new SitemapReplacementMarkdownPost('custom')));
+
+        $sitemap = (new SitemapGenerator())->generate()->getXmlElement();
+        $postEntry = collect($sitemap->url)->first(
+            fn ($url): bool => (string) $url->loc === 'posts/custom.html'
+        );
+
+        $this->assertNotNull($postEntry);
+        $this->assertSame('weekly', (string) $postEntry->changefreq);
+        $this->assertSame('0.5', (string) $postEntry->priority);
     }
 
     public function testGenerateDoesNotAddConfiguredRedirectsToXml()
@@ -266,4 +296,8 @@ class SitemapServiceTest extends TestCase
         $this->assertEquals('404.html', $service->getXmlElement()->url[0]->loc);
         $this->assertEquals('index.html', $service->getXmlElement()->url[1]->loc);
     }
+}
+
+class SitemapReplacementMarkdownPost extends MarkdownPost
+{
 }

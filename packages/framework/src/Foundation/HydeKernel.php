@@ -72,6 +72,9 @@ class HydeKernel implements SerializableContract
     /** @var array<class-string<\Hyde\Foundation\Concerns\HydeExtension>, \Hyde\Foundation\Concerns\HydeExtension> */
     protected array $extensions = [];
 
+    /** @var array<class-string<\Hyde\Pages\Concerns\HydePage>, class-string<\Hyde\Pages\Concerns\HydePage>> */
+    protected array $pageClassReplacements = [];
+
     public function __construct(?string $basePath = null)
     {
         $this->setBasePath($basePath ?? getcwd());
