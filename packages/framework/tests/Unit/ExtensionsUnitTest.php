@@ -226,7 +226,14 @@ class ExtensionsUnitTest extends UnitTestCase
         $this->kernel->replacePageClass(MarkdownPost::class, ReplacementMarkdownPost::class);
         $this->kernel->registerExtension(ReplacementPageExtension::class);
 
-        $this->assertSame(1, array_count_values($this->kernel->getRegisteredPageClasses())[ReplacementMarkdownPost::class]);
+        $this->assertSame([
+            HtmlPage::class,
+            BladePage::class,
+            MarkdownPage::class,
+            ReplacementMarkdownPost::class,
+            DocumentationPage::class,
+            ReplaceableExtensionPage::class,
+        ], $this->kernel->getRegisteredPageClasses());
     }
 
     public function testRegisteringTheSameReplacementTwiceIsIdempotent()
@@ -423,6 +430,6 @@ class ReplacementPageExtension extends HydeExtension
 {
     public static function getPageClasses(): array
     {
-        return [ReplacementMarkdownPost::class];
+        return [ReplacementMarkdownPost::class, ReplaceableExtensionPage::class];
     }
 }
