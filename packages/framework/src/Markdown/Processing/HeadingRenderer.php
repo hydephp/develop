@@ -30,11 +30,21 @@ class HeadingRenderer implements NodeRendererInterface
     /** @var array<string> */
     protected array $headingRegistry = [];
 
+    /** @var array<class-string<\Hyde\Pages\Concerns\HydePage>> */
+    protected array $permalinkPageClasses = [];
+
     /** @param ?class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
     public function __construct(?string $pageClass = null, array &$headingRegistry = [])
     {
         $this->pageClass = $pageClass;
         $this->headingRegistry = &$headingRegistry;
+
+        if ($pageClass !== null) {
+            $this->permalinkPageClasses = array_map(
+                Hyde::resolvePageClass(...),
+                config('markdown.permalinks.pages', [DocumentationPage::class])
+            );
+        }
     }
 
     public function render(Node $node, ChildNodeRendererInterface $childRenderer): string
@@ -64,10 +74,7 @@ class HeadingRenderer implements NodeRendererInterface
             && $level <= config('markdown.permalinks.max_level', 6)
             && ! str_contains($content, 'class="heading-permalink"')
             && $this->pageClass !== null
-            && in_array($this->pageClass, array_map(
-                Hyde::resolvePageClass(...),
-                config('markdown.permalinks.pages', [DocumentationPage::class])
-            ), true);
+            && in_array($this->pageClass, $this->permalinkPageClasses, true);
     }
 
     /** @internal */
