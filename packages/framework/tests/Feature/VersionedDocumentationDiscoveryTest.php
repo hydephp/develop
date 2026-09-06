@@ -21,28 +21,6 @@ require_once __DIR__.'/VersionedDocumentationTestCase.php';
 #[\PHPUnit\Framework\Attributes\CoversClass(DocumentationVersions::class)]
 class VersionedDocumentationDiscoveryTest extends VersionedDocumentationTestCase
 {
-    public function testDocumentationPageReplacementWorksAcrossVersionedDocumentation()
-    {
-        $this->enableVersions();
-        Hyde::replacePageClass(DocumentationPage::class, ReplacementVersionedDocumentationPage::class);
-
-        $this->file('_docs/1.x/index.md');
-        $this->file('_docs/1.x/installation.md');
-        $this->file('_docs/2.x/index.md');
-        $this->file('_docs/2.x/upgrading.md');
-
-        $this->rediscoverPages();
-
-        $pages = Hyde::pages()->getPages(DocumentationPage::class);
-
-        $this->assertCount(4, $pages);
-        $this->assertContainsOnlyInstancesOf(ReplacementVersionedDocumentationPage::class, $pages);
-        $this->assertInstanceOf(ReplacementVersionedDocumentationPage::class, DocumentationPage::get('1.x/installation'));
-        $this->assertInstanceOf(ReplacementVersionedDocumentationPage::class, DocumentationPage::get('2.x/upgrading'));
-        $this->assertSame(['docs/1.x/installation'], $this->menuRouteKeys($this->sidebar('1.x')));
-        $this->assertSame(['docs/2.x/upgrading'], $this->menuRouteKeys($this->sidebar('2.x')));
-    }
-
     public function testVersionedPagesAreDiscoveredWithVersionedRouteKeys()
     {
         $this->enableVersions();
@@ -137,8 +115,4 @@ class VersionedDocumentationDiscoveryTest extends VersionedDocumentationTestCase
             DocumentationPage::setOutputDirectory('docs');
         }
     }
-}
-
-class ReplacementVersionedDocumentationPage extends DocumentationPage
-{
 }

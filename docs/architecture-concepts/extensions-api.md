@@ -119,19 +119,14 @@ These callbacks provide powerful hooks into the Hyde system, allowing your exten
 
 Let's go crazy and implement a discovery handler to collect `JsonPage` files from an external API! We will do this
 by implementing the `discoverPages` method in our extension class, and from there inject pages retrieved from our API.
-Custom handlers should resolve registered page classes before assigning them to source files or constructing pages so
-applications can replace third-party page classes.
 
 ```php
-use Hyde\Hyde;
-
 class JsonPageExtension extends HydeExtension {
     public function discoverPages(PageCollection $collection): void {
         $pages = Http::get('https://example.com/my-api')->collect();
-        $pageClass = Hyde::resolvePageClass(JsonPage::class);
 
-        $pages->each(function (array $page) use ($collection, $pageClass): void {
-            $collection->addPage($pageClass::fromArray($page));
+        $pages->each(function (array $page) use ($collection): void {
+            $collection->addPage(JsonPage::fromArray($page));
         });
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Hyde;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -104,19 +103,4 @@ class SourceFileParserTest extends TestCase
 
         $this->assertSame('Foo Bar', $page->data('title'));
     }
-
-    public function testBladePageReplacementRetainsBladeMatterParsing()
-    {
-        Hyde::replacePageClass(BladePage::class, ReplacementBladePage::class);
-        $this->file('_pages/foo.blade.php', "@php(\$title = 'Foo Bar')\n");
-
-        $page = BladePage::parse('foo');
-
-        $this->assertInstanceOf(ReplacementBladePage::class, $page);
-        $this->assertSame('Foo Bar', $page->data('title'));
-    }
-}
-
-class ReplacementBladePage extends BladePage
-{
 }
