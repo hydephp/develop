@@ -156,7 +156,10 @@ trait ManagesExtensions
     }
 
     /**
-     * @internal Resolve a canonical page class to the class used at runtime.
+     * Resolve a page class to its registered replacement, if any.
+     *
+     * Custom extension discovery handlers should resolve page classes before assigning
+     * them to source files or constructing pages so application replacements are honored.
      *
      * @param  class-string<HydePage>  $pageClass
      * @return class-string<HydePage>
