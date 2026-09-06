@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown\Processing;
 
-use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Str;
 use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
-
-use function array_map;
-use function in_array;
 
 /**
  * Renders a heading node, and supports built-in permalink generation.
@@ -30,21 +26,11 @@ class HeadingRenderer implements NodeRendererInterface
     /** @var array<string> */
     protected array $headingRegistry = [];
 
-    /** @var array<class-string<\Hyde\Pages\Concerns\HydePage>> */
-    protected array $permalinkPageClasses = [];
-
     /** @param ?class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
     public function __construct(?string $pageClass = null, array &$headingRegistry = [])
     {
         $this->pageClass = $pageClass;
         $this->headingRegistry = &$headingRegistry;
-
-        if ($pageClass !== null) {
-            $this->permalinkPageClasses = array_map(
-                Hyde::resolvePageClass(...),
-                config('markdown.permalinks.pages', [DocumentationPage::class])
-            );
-        }
     }
 
     public function render(Node $node, ChildNodeRendererInterface $childRenderer): string
@@ -73,8 +59,7 @@ class HeadingRenderer implements NodeRendererInterface
             && $level >= config('markdown.permalinks.min_level', 2)
             && $level <= config('markdown.permalinks.max_level', 6)
             && ! str_contains($content, 'class="heading-permalink"')
-            && $this->pageClass !== null
-            && in_array($this->pageClass, $this->permalinkPageClasses, true);
+            && in_array($this->pageClass, config('markdown.permalinks.pages', [DocumentationPage::class]));
     }
 
     /** @internal */

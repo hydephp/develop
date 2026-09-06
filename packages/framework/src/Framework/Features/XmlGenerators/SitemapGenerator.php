@@ -19,9 +19,8 @@ use Illuminate\Support\Carbon;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Facades\Routes;
 
-use function array_map;
-use function date;
 use function in_array;
+use function date;
 
 /**
  * @see https://www.sitemaps.org/protocol.html
@@ -73,11 +72,7 @@ class SitemapGenerator extends BaseXmlGenerator
     {
         $priority = 0.5;
 
-        if (in_array($pageClass, array_map(Hyde::resolvePageClass(...), [
-            BladePage::class,
-            MarkdownPage::class,
-            DocumentationPage::class,
-        ]), true)) {
+        if (in_array($pageClass, [BladePage::class, MarkdownPage::class, DocumentationPage::class])) {
             $priority = 0.9;
 
             if ($identifier === 'index') {
@@ -85,11 +80,7 @@ class SitemapGenerator extends BaseXmlGenerator
             }
         }
 
-        if (in_array($pageClass, array_map(Hyde::resolvePageClass(...), [
-            MarkdownPost::class,
-            InMemoryPage::class,
-            HtmlPage::class,
-        ]), true)) {
+        if (in_array($pageClass, [MarkdownPost::class, InMemoryPage::class, HtmlPage::class])) {
             $priority = 0.75;
         }
 
@@ -108,11 +99,7 @@ class SitemapGenerator extends BaseXmlGenerator
     {
         $frequency = 'weekly';
 
-        if (in_array($pageClass, array_map(Hyde::resolvePageClass(...), [
-            BladePage::class,
-            MarkdownPage::class,
-            DocumentationPage::class,
-        ]), true)) {
+        if (in_array($pageClass, [BladePage::class, MarkdownPage::class, DocumentationPage::class])) {
             $frequency = 'daily';
         }
 

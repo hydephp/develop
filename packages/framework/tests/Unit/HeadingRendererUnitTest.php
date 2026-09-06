@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Foundation\HydeKernel;
-use Hyde\Hyde;
 use Hyde\Markdown\Processing\HeadingRenderer;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
@@ -177,37 +175,6 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertTrue($renderer->canAddPermalink('Test Content', 2));
     }
 
-    public function testCanonicalPermalinkConfigurationAppliesToPageSubclasses(): void
-    {
-        $kernel = Hyde::kernel();
-
-        try {
-            HydeKernel::setInstance(new HydeKernel());
-            self::mockConfig([
-                'markdown.permalinks.pages' => [DocumentationPage::class],
-            ]);
-
-            Hyde::replacePageClass(DocumentationPage::class, ReplacementDocumentationPage::class);
-
-            $renderer = new HeadingRenderer(ReplacementDocumentationPage::class);
-
-            $this->assertTrue($renderer->canAddPermalink('Test Content', 2));
-        } finally {
-            HydeKernel::setInstance($kernel);
-        }
-    }
-
-    public function testCanonicalPermalinkConfigurationDoesNotApplyToUnregisteredPageSubclasses(): void
-    {
-        self::mockConfig([
-            'markdown.permalinks.pages' => [DocumentationPage::class],
-        ]);
-
-        $renderer = new HeadingRenderer(ReplacementDocumentationPage::class);
-
-        $this->assertFalse($renderer->canAddPermalink('Test Content', 2));
-    }
-
     public function testPostProcessMethodNormalizesInputToMatchCommonMark()
     {
         // Actual HTML output returned from Blade
@@ -335,8 +302,4 @@ class HeadingRendererUnitTest extends UnitTestCase
         yield ['    ', ''];
         yield ['1234567890', '1234567890'];
     }
-}
-
-class ReplacementDocumentationPage extends DocumentationPage
-{
 }
