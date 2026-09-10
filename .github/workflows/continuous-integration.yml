@@ -265,7 +265,7 @@ jobs:
         run: echo ${{ github.sha }} > origin-ref
 
       - name: Publish the post feed homepage
-        run: php hyde publish:homepage posts -n
+        run: php hyde publish --page=posts --to=_pages/index.blade.php --force -n
 
       - name: Compile the static site
         run: php hyde build

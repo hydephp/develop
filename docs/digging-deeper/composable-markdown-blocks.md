@@ -67,11 +67,11 @@ All view paths are relative to `resources/views/components/` in the framework pa
 Every built-in block view is publishable through a single command:
 
 ```terminal
-php hyde publish:views components
+php hyde publish --components
 ```
 
-Running it without arguments prompts you for a group first. Unless you choose to publish everything, it then asks which
-individual files you want, so you can take just the one view you care about instead of the whole set.
+In an interactive terminal that opens a picker, so you can take just the one view you care about instead of the whole
+set. Add `--all` to skip the picker and publish every component view.
 
 Published views land in `resources/views/vendor/hyde/components/`, mirroring the framework's directory structure:
 
@@ -87,7 +87,7 @@ resources/views/vendor/hyde/components/
 Laravel's view finder checks the published `vendor/hyde` directory before falling back to the framework's copy, so a
 published file takes precedence automatically. There is nothing to register.
 
->warning Publishing a view **overwrites** any existing file at the target path. If you have already customized a view, publish to a scratch directory or check your diff before confirming.
+>info Publishing never overwrites a view you have already customized. Views that already match are skipped, and modified ones are left alone unless you confirm the overwrite or pass `--force`.
 
 ### Recompiling your CSS
 
@@ -677,7 +677,7 @@ will stop rendering with it. Custom CommonMark extensions are unaffected.
 ### Publishing is a snapshot
 
 A published view is a copy, frozen at the version you published it from. Framework updates that change the default
-markup, add a class hook, or pass a new variable will not reach it. Re-run `php hyde publish:views components` after
+markup, add a class hook, or pass a new variable will not reach it. Re-run `php hyde publish --components` after
 major upgrades and diff your customizations against the new defaults.
 
 ### Your highlighter decides what `$contents` looks like

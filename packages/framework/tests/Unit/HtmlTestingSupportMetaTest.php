@@ -281,7 +281,7 @@ You're running on HydePHP
 Leap into the future of static HTML blogs and documentation with the tools you already know and love.
 Made with Tailwind, Laravel, and Coffee.
 This is the default homepage stored as index.blade.php, however you can publish any of the built-in views using the following command:
-php hyde php hyde php hyde publish:homepage
+php hyde php hyde php hyde publish --page
 Resources for getting started
 Documentation
 Getting Started
