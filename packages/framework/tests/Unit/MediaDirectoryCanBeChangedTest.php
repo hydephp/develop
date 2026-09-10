@@ -25,6 +25,7 @@ class MediaDirectoryCanBeChangedTest extends TestCase
 
         $this->directory('_assets');
         $this->file('_assets/app.css');
+        $this->file('_assets/document.pdf');
 
         Hyde::setMediaDirectory('_assets');
 
@@ -33,6 +34,7 @@ class MediaDirectoryCanBeChangedTest extends TestCase
         $this->assertDirectoryDoesNotExist(Hyde::path('_site/media'));
         $this->assertDirectoryExists(Hyde::path('_site/assets'));
         $this->assertFileExists(Hyde::path('_site/assets/app.css'));
+        $this->assertFileExists(Hyde::path('_site/assets/document.pdf'));
 
         $this->resetSite();
     }

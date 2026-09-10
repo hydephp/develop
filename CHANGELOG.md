@@ -30,6 +30,7 @@ This serves two purposes:
 - Pages with non-HTML output paths are now excluded from automatic navigation by default. Explicit navigation front matter now takes precedence over automatic navigation exclusions.
 - Fenced code blocks are now rendered through the publishable `components/markdown/code-block.blade.php` view, which changes the generated markup around the code. Syntax highlighting is unaffected, and the `hyde-code-block` and `hyde-code-block-label` classes are stable hooks for your own CSS.
 - Code block labels are now set with a `title="…"` modifier on the fence, replacing the `// filepath:` comment syntax, which is no longer recognized and must be replaced.
+- The `_media` directory is now a passthrough: every file it contains is discovered and copied to the built site, not just files with a recognized extension. `Thumbs.db` and `desktop.ini` are still skipped.
 
 ### Deprecated
 - for changes that will be removed in upcoming releases.
@@ -38,6 +39,7 @@ This serves two purposes:
 - Removed the `rebuild` command. It had no remaining internal consumers now that the realtime compiler renders pages in-memory, and single-page builds can silently leave aggregate outputs (sitemap, RSS, search index, navigation) stale. Use `Hyde\Framework\Actions\StaticPageBuilder::handle()` instead if you need to build a single page programmatically.
 - Removed the `InMemoryPage` instance macro API. Use a contents closure for dynamic output, or extend `InMemoryPage` to add custom methods and behavior.
 - Removed the `components/filepath-label.blade.php` view, as the label markup now lives in the code block view. If this was published, port any customizations into `components/markdown/code-block.blade.php`.
+- Removed the `hyde.media_extensions` config option, now that the media directory discovers files of every type.
 
 ### Fixed
 - Fixed Markdown-to-plain-text conversion consuming unrelated content after ATX headings and stripping literal trailing hashes in https://github.com/hydephp/develop/pull/2590

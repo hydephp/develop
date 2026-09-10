@@ -74,6 +74,8 @@ Having this document in code lets us know the devlopment state at any given poin
 
   The undocumented `hyde.empty_output_directory` option is removed too. It was never present in the shipped `config/hyde.php` and never documented, so no upgrade step is needed for it.
 
+- The `_media` directory is now a passthrough for every file it contains, rather than only files matching the `hyde.media_extensions` allow-list. That option is removed, along with `MediaFile::EXTENSIONS` as anything more than a deprecated internal default kept so old published config files still load. `Thumbs.db` and `desktop.ini` are still skipped regardless of case, since Symfony Finder's dotfile and VCS exclusions were already relied on and remain unchanged. This lets media types Hyde never had an opinion about — PDFs, fonts, archives — pass through without a config change, at the cost of also copying files a project may have parked in `_media` for other reasons.
+
 ### Upgrade guide
 
 Please fill in UPGRADE.md as you make changes.
@@ -92,6 +94,7 @@ Please fill in UPGRADE.md as you make changes.
 - Compare a few pages against your old site if you have custom CSS for code blocks or their labels, since the generated markup changed. The `hyde-code-block` and `hyde-code-block-label` classes are stable hooks to target instead of the markup structure.
 - Port any customizations from a published `filepath-label.blade.php` to `markdown/code-block.blade.php`. The old file is ignored after upgrading, so the site renders with the shipped label until they are moved.
 - Move manually maintained files out of the output directory and into `_static`, since the whole output directory is now emptied before every build. Remove `safe_output_directories` from a published `config/hyde.php`.
+- Remove `media_extensions` from a published `config/hyde.php`, and move any non-asset files out of `_media` that you were relying on the extension allow-list to keep out of the build.
 
 ## `InMemoryPage` content-source motivation
 

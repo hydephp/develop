@@ -15,6 +15,8 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Filesystem\Filesystem as BaseFilesystem;
 
+use function defined;
+
 /**
  * @see \Hyde\Framework\Testing\Feature\Support\MediaFileTest
  */
@@ -69,6 +71,12 @@ class MediaFileUnitTest extends UnitTestCase
     protected function tearDown(): void
     {
         $this->verifyMockeryExpectations();
+    }
+
+    public function testExtensionsConstantIsStillDefined()
+    {
+        // Published config files reference this constant at load time, so removing it fatals an upgrading app.
+        $this->assertTrue(defined(MediaFile::class.'::EXTENSIONS'));
     }
 
     public function testCanConstruct()
