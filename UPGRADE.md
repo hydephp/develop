@@ -447,8 +447,6 @@ The `hyde.safe_output_directories` option no longer exists, and the build no lon
 
 >warning This changes what you deploy. **Review the contents of `_media` before upgrading.** Any normal file stored there, such as design source files, notes, exports, or source maps, will now be publicly accessible on your built site. Move anything that should not be public out of `_media`.
 
-This can also surface a new collision with `_static`: if a file such as `_media/report.pdf` was never discovered before because `.pdf` wasn't on the allow-list, `_static/media/report.pdf` could coexist with it. Now that `_media/report.pdf` is discovered too, the build throws a `FileConflictException` for the collision. Rename or remove one of the two files.
-
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
