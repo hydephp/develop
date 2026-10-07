@@ -30,7 +30,7 @@ This serves two purposes:
 - Pages with non-HTML output paths are now excluded from automatic navigation by default. Explicit navigation front matter now takes precedence over automatic navigation exclusions.
 - Fenced code blocks are now rendered through the publishable `components/markdown/code-block.blade.php` view, which changes the generated markup around the code. Syntax highlighting is unaffected, and the `hyde-code-block` and `hyde-code-block-label` classes are stable hooks for your own CSS.
 - Code block labels are now set with a `title="…"` modifier on the fence, replacing the `// filepath:` comment syntax, which is no longer recognized and must be replaced.
-- The `_media` directory is now a passthrough: every file it contains is published to the built site, not just files with a recognized extension. Review `_media` before upgrading, as anything stored there is now public.
+- The `_media` directory is now a passthrough: files are published to the built site regardless of file type, not just those with a recognized extension. Review `_media` before upgrading, as anything stored there is now public.
 
 ### Deprecated
 - for changes that will be removed in upcoming releases.

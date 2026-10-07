@@ -99,7 +99,7 @@ to add your custom styles. It is also where we import HydeFront. If you compile 
 it will output the same file that's already included in Hyde.
 
 - The `_media` folder contains your public site assets, such as images, stylesheets, scripts, fonts, and downloads.
-When Hyde compiles your static site, every file here gets copied as-is into the `_site/media` folder. This is also
+When Hyde compiles your static site, files here are copied as-is into the `_site/media` folder, regardless of file type. This is also
 where Vite writes the compiled (and usually minified) styles and scripts from `resources/assets`.
 
 - The `_site/media` folder contains the files that are served to the user.

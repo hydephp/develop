@@ -443,7 +443,7 @@ The `hyde.safe_output_directories` option no longer exists, and the build no lon
 
 ## Step 13: Review the Contents of Your Media Directory
 
-`_media` is now a passthrough directory: files are no longer filtered by extension, and every file it contains is published to `_site/media`, regardless of its type.
+`_media` is now a passthrough directory: files are no longer filtered by extension, and are published to `_site/media` regardless of their type.
 
 >warning This changes what you deploy. **Review the contents of `_media` before upgrading.** Any normal file stored there, such as design source files, notes, exports, or source maps, will now be publicly accessible on your built site. Move anything that should not be public out of `_media`.
 
