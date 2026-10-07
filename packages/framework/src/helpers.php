@@ -27,7 +27,7 @@ namespace {
              * If a base URL is configured, the image will be returned with a qualified absolute URL.
              * Otherwise, a relative path will be returned based on the rendered page's location.
              *
-             * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist in the `_media` source directory.
+             * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist in the `_media` source directory, or is not published to the site.
              */
             function asset(string $name): MediaFile
             {

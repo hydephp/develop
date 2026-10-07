@@ -19,6 +19,7 @@ use function array_merge;
 use function array_pop;
 use function explode;
 use function in_array;
+use function sprintf;
 use function str_replace;
 use function str_starts_with;
 use function strtolower;
@@ -72,11 +73,21 @@ class MediaFile extends ProjectFile implements Stringable
     /**
      * Get or create a media file instance from the HydeKernel for the given file.
      *
-     * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist in the `_media` source directory.
+     * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist in the `_media` source directory, or is not published to the site.
      */
     public static function get(string $path): MediaFile
     {
-        return Hyde::assets()->get($path) ?? static::make($path);
+        $file = Hyde::assets()->get($path) ?? static::make($path);
+
+        if (! static::isPublishable($file->getIdentifier())) {
+            throw new FileNotFoundException($file->getPath(), sprintf(
+                'File [%s] is not published to the built site, so it cannot be used as an asset. '
+                .'Dotfiles, version control directories, Thumbs.db, and desktop.ini are excluded from the media directory.',
+                $file->getPath()
+            ));
+        }
+
+        return $file;
     }
 
     /**

@@ -24,7 +24,7 @@ trait ForwardsHyperlinks
         return $this->hyperlinks->relativeLink($destination);
     }
 
-    /** @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist in the `_media` source directory. */
+    /** @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist in the `_media` source directory, or is not published to the site. */
     public function asset(string $name): MediaFile
     {
         return $this->hyperlinks->asset($name);
