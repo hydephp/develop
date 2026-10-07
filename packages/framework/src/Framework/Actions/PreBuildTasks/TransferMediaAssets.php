@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\PreBuildTasks;
 
+use ErrorException;
 use RuntimeException;
 use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
@@ -39,10 +40,19 @@ class TransferMediaAssets extends PreBuildTask
 
         $this->withProgressBar($files, function (MediaFile $file) use (&$failures): void {
             $sitePath = $file->getOutputPath();
-            $this->needsParentDirectory($sitePath);
+            $transfer = "[{$file->getPath()}] to [{$sitePath}]";
 
-            if (! Filesystem::copy($file->getPath(), $sitePath)) {
-                $failures[] = "[{$file->getPath()}] to [{$sitePath}]";
+            try {
+                $this->needsParentDirectory($sitePath);
+                $copied = Filesystem::copy($file->getPath(), $sitePath);
+            } catch (ErrorException $exception) {
+                $failures[] = "$transfer: {$exception->getMessage()}";
+
+                return;
+            }
+
+            if (! $copied) {
+                $failures[] = $transfer;
             }
         });
 

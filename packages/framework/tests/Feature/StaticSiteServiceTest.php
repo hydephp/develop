@@ -147,6 +147,28 @@ class StaticSiteServiceTest extends TestCase
         app()->forgetInstance(BaseFilesystem::class);
     }
 
+    public function testBuildCommandTransfersEveryFileBeforeReportingACopyThatThrows()
+    {
+        $this->file('_media/good.txt', 'ok');
+        $this->file('_media/bad.txt', 'nope');
+
+        $mock = Mockery::mock(BaseFilesystem::class)->makePartial();
+        $mock->shouldReceive('copy')->withArgs(fn (string $path): bool => str_contains($path, 'bad.txt'))
+            ->andReturnUsing(fn (string $path, string $target): bool => copy(Hyde::path('missing/source.txt'), $target));
+        $mock->shouldReceive('copy')->withArgs(fn (string $path): bool => ! str_contains($path, 'bad.txt'))->passthru();
+        app()->instance(BaseFilesystem::class, $mock);
+
+        try {
+            $this->artisan('build')->expectsOutputToContain(
+                '[_media/bad.txt] to ['.Hyde::path('_site/media/bad.txt').']: copy('.Hyde::path('missing/source.txt').'): Failed to open stream'
+            );
+
+            $this->assertFileExists(Hyde::path('_site/media/good.txt'));
+        } finally {
+            app()->forgetInstance(BaseFilesystem::class);
+        }
+    }
+
     public function testBuildCommandSkipsMediaTransferWhenThereAreNoAssets()
     {
         // The file must leave the media directory entirely, since renaming it within a passthrough directory wouldn't empty it.
