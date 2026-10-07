@@ -94,7 +94,7 @@ Please fill in UPGRADE.md as you make changes.
 - Compare a few pages against your old site if you have custom CSS for code blocks or their labels, since the generated markup changed. The `hyde-code-block` and `hyde-code-block-label` classes are stable hooks to target instead of the markup structure.
 - Port any customizations from a published `filepath-label.blade.php` to `markdown/code-block.blade.php`. The old file is ignored after upgrading, so the site renders with the shipped label until they are moved.
 - Move manually maintained files out of the output directory and into `_static`, since the whole output directory is now emptied before every build. Remove `safe_output_directories` from a published `config/hyde.php`.
-- Remove `media_extensions` from a published `config/hyde.php`, and move any non-asset files out of `_media` that you were relying on the extension allow-list to keep out of the build.
+- Remove `media_extensions` from a published `config/hyde.php` before updating Composer dependencies, since it references the removed `MediaFile::EXTENSIONS` constant, and move any non-asset files out of `_media` that you were relying on the extension allow-list to keep out of the build.
 
 ## `InMemoryPage` content-source motivation
 
