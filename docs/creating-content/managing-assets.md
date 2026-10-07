@@ -98,19 +98,11 @@ Here you will find the `app.css` file that bootstraps the TailwindCSS styles. Th
 to add your custom styles. It is also where we import HydeFront. If you compile this file in the base install,
 it will output the same file that's already included in Hyde.
 
-- The `_media` folder contains your **public** site assets. When Hyde compiles your static site, every file here
-gets copied as-is into the `_site/media` folder, preserving its path and regardless of its file type. This includes
-images, stylesheets, scripts, fonts, documents, downloads, and any other static files. Vite also writes the compiled
-(and usually minified) styles and scripts from `resources/assets` here.
+- The `_media` folder contains your public site assets, such as images, stylesheets, scripts, fonts, and downloads.
+When Hyde compiles your static site, every file here gets copied as-is into the `_site/media` folder. This is also
+where Vite writes the compiled (and usually minified) styles and scripts from `resources/assets`.
 
 - The `_site/media` folder contains the files that are served to the user.
-
->warning Everything in `_media` should be considered public. Don't keep design source files, notes, or anything else you don't want to deploy in this folder.
-
-The only files in `_media` that are not published are dotfiles (like `.gitkeep`), files in dot directories or version
-control directories (like `.git`), and the `Thumbs.db` and `desktop.ini` files created by operating systems. The same
-rules apply when previewing your site with `php hyde serve`, so the preview exposes exactly the files the build publishes.
-If you need a publicly accessible dotfile, such as `.well-known/security.txt`, place it in `_static` instead.
 
 ### What is the difference between `_media` and `_site/media`?
 

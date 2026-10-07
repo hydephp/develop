@@ -441,7 +441,7 @@ The `hyde.safe_output_directories` option no longer exists, and the build no lon
 
 ## Step 13: Review the Contents of Your Media Directory
 
-`_media` is now a passthrough directory: files are no longer filtered by extension, and every file it contains is published to `_site/media`, regardless of its type. The only exceptions are dotfiles, files in dot directories or version control directories, and the `Thumbs.db` and `desktop.ini` files created by operating systems. `php hyde serve` follows the exact same rules, so it no longer serves files that the build doesn't publish.
+`_media` is now a passthrough directory: files are no longer filtered by extension, and every file it contains is published to `_site/media`, regardless of its type.
 
 >warning This changes what you deploy. **Review the contents of `_media` before upgrading.** Any normal file stored there, such as design source files, notes, exports, or source maps, will now be publicly accessible on your built site. Move anything that should not be public out of `_media`.
 
