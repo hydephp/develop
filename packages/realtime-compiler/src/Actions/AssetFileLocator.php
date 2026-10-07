@@ -25,7 +25,6 @@ class AssetFileLocator
             $relativePath = substr($path, strlen(static::mediaOutputDirectory()) + 1);
             $media = BASE_PATH.'/'.static::mediaDirectory().'/'.$relativePath;
 
-            // Only serve media files that the build would publish, so the preview matches the built site.
             if (MediaFile::isPublishable($relativePath) && is_file($media)) {
                 return $media;
             }

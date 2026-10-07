@@ -102,11 +102,10 @@ class MediaFile extends ProjectFile implements Stringable
     /**
      * Determine whether a file in the media directory is published to the site.
      *
-     * The media directory is a passthrough, so every file is published except dotfiles, files in dot
-     * directories or version control directories, and operating system metadata files. This is the
-     * single rule shared by the build and the realtime compiler, so that serving and building the site
-     * expose the same files. It must not depend on application state, as the realtime compiler
-     * proxies media files before the application boots.
+     * Shared by the build and the realtime compiler, which calls it before the application boots,
+     * so it must not depend on application state.
+     *
+     * @internal
      *
      * @param  string  $path  The file path relative to the media source directory.
      */
