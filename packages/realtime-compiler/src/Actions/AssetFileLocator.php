@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Actions;
 
+use Hyde\Support\Filesystem\MediaFile;
+
 /**
  * Locate a static file to proxy.
  */
@@ -20,9 +22,11 @@ class AssetFileLocator
         }
 
         if (static::isMediaPath($path)) {
-            $media = BASE_PATH.'/'.static::mediaDirectory().'/'.substr($path, strlen(static::mediaOutputDirectory()) + 1);
+            $relativePath = substr($path, strlen(static::mediaOutputDirectory()) + 1);
+            $media = BASE_PATH.'/'.static::mediaDirectory().'/'.$relativePath;
 
-            if (is_file($media)) {
+            // Only serve media files that the build would publish, so the preview matches the built site.
+            if (MediaFile::isPublishable($relativePath) && is_file($media)) {
                 return $media;
             }
         }

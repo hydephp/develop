@@ -16,6 +16,13 @@ use function Hyde\unslash;
 use function Hyde\path_join;
 use function Hyde\trim_slashes;
 use function array_merge;
+use function array_pop;
+use function explode;
+use function in_array;
+use function str_replace;
+use function str_starts_with;
+use function strtolower;
+use function trim;
 
 /**
  * File abstraction for a project media file.
@@ -24,6 +31,12 @@ use function array_merge;
  */
 class MediaFile extends ProjectFile implements Stringable
 {
+    /** @var array<string> Operating system metadata files that are never published, compared case-insensitively */
+    protected const IGNORED_FILENAMES = ['thumbs.db', 'desktop.ini'];
+
+    /** @var array<string> Version control directories that are never published, matching Symfony Finder's exclusions */
+    protected const VCS_DIRECTORIES = ['.svn', '_svn', 'CVS', '_darcs', '.arch-params', '.monotone', '.bzr', '.git', '.hg'];
+
     protected readonly int $length;
     protected readonly string $mimeType;
     protected readonly string $hash;
@@ -84,6 +97,32 @@ class MediaFile extends ProjectFile implements Stringable
     public static function files(): array
     {
         return static::all()->keys()->all();
+    }
+
+    /**
+     * Determine whether a file in the media directory is published to the site.
+     *
+     * The media directory is a passthrough, so every file is published except dotfiles, files in dot
+     * directories or version control directories, and operating system metadata files. This is the
+     * single rule shared by the build and the realtime compiler, so that serving and building the site
+     * expose the same files. It must not depend on application state, as the realtime compiler
+     * proxies media files before the application boots.
+     *
+     * @param  string  $path  The file path relative to the media source directory.
+     */
+    public static function isPublishable(string $path): bool
+    {
+        $segments = explode('/', trim(str_replace('\\', '/', $path), '/'));
+        $filename = array_pop($segments);
+
+        foreach ($segments as $directory) {
+            if (str_starts_with($directory, '.') || in_array($directory, static::VCS_DIRECTORIES, true)) {
+                return false;
+            }
+        }
+
+        return $filename !== '' && ! str_starts_with($filename, '.')
+            && ! in_array(strtolower($filename), static::IGNORED_FILENAMES, true);
     }
 
     /**

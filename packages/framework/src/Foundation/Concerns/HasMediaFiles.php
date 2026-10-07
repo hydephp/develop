@@ -10,9 +10,6 @@ use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Collection;
 
 use function collect;
-use function basename;
-use function in_array;
-use function strtolower;
 
 /**
  * @internal Single-use trait for the Filesystem class.
@@ -21,8 +18,6 @@ use function strtolower;
  */
 trait HasMediaFiles
 {
-    private const IGNORED_FILENAMES = ['thumbs.db', 'desktop.ini'];
-
     /** @var Collection<string, \Hyde\Support\Filesystem\MediaFile> The Collection keys are the filenames relative to the _media/ directory */
     protected Collection $assets;
 
@@ -42,13 +37,11 @@ trait HasMediaFiles
             $file = MediaFile::make($path);
 
             return [$file->getIdentifier() => $file];
-        });
+        })->filter(fn (MediaFile $file, string $identifier): bool => MediaFile::isPublishable($identifier));
     }
 
     protected static function getMediaFiles(): array
     {
-        return Filesystem::findFiles(Hyde::getMediaDirectory(), false, recursive: true)
-            ->reject(fn (string $path): bool => in_array(strtolower(basename($path)), self::IGNORED_FILENAMES, true))
-            ->values()->all();
+        return Filesystem::findFiles(Hyde::getMediaDirectory(), recursive: true)->all();
     }
 }

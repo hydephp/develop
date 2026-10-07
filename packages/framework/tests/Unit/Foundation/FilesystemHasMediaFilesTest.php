@@ -112,6 +112,21 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
         $this->assertTrue($assets->has('image.png'));
     }
 
+    public function testItIgnoresFilesThatAreNotPublishable()
+    {
+        $this->mockFileFinder([
+            '_media/.gitkeep',
+            '_media/.hidden/file.txt',
+            '_media/.git/config',
+            '_media/CVS/Entries',
+            '_media/fonts/inter.woff2',
+        ]);
+
+        $assets = (new Filesystem(Hyde::getInstance()))->assets();
+
+        $this->assertSame(['fonts/inter.woff2'], $assets->keys()->all());
+    }
+
     public function testDiscoverMediaFilesWithEmptyResult()
     {
         $this->filesystem->setTestMediaFiles([]);
