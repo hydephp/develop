@@ -441,9 +441,11 @@ The `hyde.safe_output_directories` option no longer exists, and the build no lon
 
 ## Step 13: Review the Contents of Your Media Directory
 
-The `hyde.media_extensions` config option no longer exists, and `_media` now discovers every file it contains, not just files with a recognized extension. Delete the entry from your `config/hyde.php`.
+`_media` is now a passthrough directory: files are no longer filtered by extension, and every file it contains is published to `_site/media`, regardless of its type. The only exceptions are dotfiles, files in dot directories or version control directories, and the `Thumbs.db` and `desktop.ini` files created by operating systems. `php hyde serve` follows the exact same rules, so it no longer serves files that the build doesn't publish.
 
-If you kept non-asset files in `_media` relying on the extension allow-list to exclude them from the build, such as design source files or notes, move them out of the directory, since they'll now be copied to the built site.
+>warning This changes what you deploy. **Review the contents of `_media` before upgrading.** Any normal file stored there, such as design source files, notes, exports, or source maps, will now be publicly accessible on your built site. Move anything that should not be public out of `_media`.
+
+The `hyde.media_extensions` config option no longer exists, and there is no replacement, since `_media` itself decides what gets published. Delete the entry from your `config/hyde.php`.
 
 This can also surface a new collision with `_static`: if a file such as `_media/report.pdf` was never discovered before because `.pdf` wasn't on the allow-list, `_static/media/report.pdf` could coexist with it. Now that `_media/report.pdf` is discovered too, the build throws a `FileConflictException` for the collision. Rename or remove one of the two files.
 
@@ -464,7 +466,7 @@ Use this checklist to track your upgrade progress:
 - [ ] Compared pages against your old site if you have custom CSS for code blocks or their labels
 - [ ] Checked `_posts` for drafts and blog posts dated in the future, and set up recurring builds if scheduling posts
 - [ ] Moved manually maintained files out of the output directory and into `_static`
-- [ ] Removed `hyde.media_extensions` from `config/hyde.php` and moved any non-asset files out of `_media`
+- [ ] Reviewed `_media`, moved out anything that shouldn't be public, and removed `hyde.media_extensions` from `config/hyde.php`
 
 ## Troubleshooting
 

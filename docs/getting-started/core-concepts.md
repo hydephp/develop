@@ -38,7 +38,7 @@ To take full advantage of the framework, it may first be good to familiarize our
 | `_docs`            | For documentation pages                                     |
 | `_posts`           | For blog posts                                              |
 | `_pages`           | For static Markdown and Blade pages                         |
-| `_media`           | Store static assets to be copied to the build directory     |
+| `_media`           | Public site assets copied as-is to the build directory      |
 | `_site`            | The build directory where your compiled site will be stored |
 | `config`           | Configuration files for Hyde and integrations               |
 | `resources/assets` | Location for CSS/JS Vite source files (optional)            |
@@ -72,7 +72,7 @@ All source and output directories are configurable, but the defaults are as foll
 | Static Pages   | `_pages/`        | `_site/`         | `.md`, `.blade.php` |
 | Blog Posts     | `_posts/`        | `_site/posts/`   | `.md`               |
 | Documentation  | `_docs/`         | `_site/docs/`    | `.md`               |
-| Media Assets   | `_media/`        | `_site/media/`   | Common asset types  |
+| Media Assets   | `_media/`        | `_site/media/`   | Any file type       |
 
 ## Paths, Identifiers, and Route Keys
 
