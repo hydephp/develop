@@ -71,6 +71,12 @@ class MediaFileUnitTest extends UnitTestCase
         $this->verifyMockeryExpectations();
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('publishablePathsProvider')]
+    public function testIsPublishable(string $path, bool $expected)
+    {
+        $this->assertSame($expected, MediaFile::isPublishable($path));
+    }
+
     public function testCanConstruct()
     {
         $file = new MediaFile('foo');
@@ -612,6 +618,33 @@ class MediaFileUnitTest extends UnitTestCase
     protected function mockCurrentPage(string $page): void
     {
         Render::shouldReceive('getRouteKey')->andReturn($page);
+    }
+
+    public static function publishablePathsProvider(): \Iterator
+    {
+        yield ['app.css', true];
+        yield ['report.pdf', true];
+        yield ['fonts/inter.woff2', true];
+        yield ['downloads/archive.zip', true];
+        yield ['nested/deeply/data.json', true];
+        yield ['README', true];
+        yield ['nested\\windows\\path.png', true];
+        yield ['CVS', true];
+        yield ['Thumbs.db', false];
+        yield ['images/THUMBS.DB', false];
+        yield ['desktop.ini', false];
+        yield ['images/Desktop.ini', false];
+        yield ['.gitkeep', false];
+        yield ['.DS_Store', false];
+        yield ['images/.env', false];
+        yield ['.well-known/security.txt', false];
+        yield ['nested/.hidden/file.txt', false];
+        yield ['.git/config', false];
+        yield ['CVS/Entries', false];
+        yield ['nested/_darcs/file', false];
+        yield ['../outside.txt', false];
+        yield ['nested/../../outside.txt', false];
+        yield ['', false];
     }
 
     public static function bootableMethodsProvider(): \Iterator

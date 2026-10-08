@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\PreBuildTasks;
 
+use ErrorException;
+use RuntimeException;
 use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Hyde\Support\Filesystem\MediaFile;
+use Symfony\Component\Console\Command\Command;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+
+use function implode;
+use function array_map;
 
 class TransferMediaAssets extends PreBuildTask
 {
@@ -30,13 +36,34 @@ class TransferMediaAssets extends PreBuildTask
             $this->skip("No media files to transfer.\n");
         }
 
-        $this->withProgressBar($files, function (MediaFile $file): void {
+        $failures = [];
+
+        $this->withProgressBar($files, function (MediaFile $file) use (&$failures): void {
             $sitePath = $file->getOutputPath();
-            $this->needsParentDirectory($sitePath);
-            Filesystem::putContents($sitePath, $file->getContents());
+            $transfer = "[{$file->getPath()}] to [{$sitePath}]";
+
+            try {
+                $this->needsParentDirectory($sitePath);
+                $copied = Filesystem::copy($file->getPath(), $sitePath);
+            } catch (ErrorException $exception) {
+                $failures[] = "$transfer: {$exception->getMessage()}";
+
+                return;
+            }
+
+            if (! $copied) {
+                $failures[] = $transfer;
+            }
         });
 
         $this->newLine();
+
+        if ($failures !== []) {
+            throw new RuntimeException(
+                "Failed to copy media file(s):\n".implode("\n", array_map(fn (string $failure): string => "- $failure", $failures)),
+                Command::FAILURE
+            );
+        }
     }
 
     public function printFinishMessage(): void

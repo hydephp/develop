@@ -84,6 +84,46 @@ class MediaFileTest extends TestCase
         MediaFile::make('non_existent_file.txt')->getLength();
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('unpublishedMediaFilesProvider')]
+    public function testExistingFilesThatAreNotPublishedCannotBeResolvedAsAssets(string $file)
+    {
+        $this->file("_media/$file");
+
+        $this->expectException(FileNotFoundException::class);
+        $this->expectExceptionMessage("File [_media/$file] is not published to the built site");
+
+        Hyde::asset($file);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('unpublishedMediaFilesProvider')]
+    public function testGettingAFileThatIsNotPublishedThrows(string $file)
+    {
+        $this->file("_media/$file");
+
+        $this->expectException(FileNotFoundException::class);
+
+        MediaFile::get($file);
+    }
+
+    public function testFilesThatAreStillPublishedCanBeResolvedAsAssets()
+    {
+        $this->file('_media/report.pdf');
+
+        $this->assertSame('_media/report.pdf', Hyde::asset('report.pdf')->getPath());
+    }
+
+    public static function unpublishedMediaFilesProvider(): array
+    {
+        return [
+            'dotfile' => ['.env'],
+            'nested dotfile' => ['images/.DS_Store'],
+            'dot directory' => ['.well-known/security.txt'],
+            'version control directory' => ['.git/config'],
+            'Thumbs.db' => ['Thumbs.db'],
+            'desktop.ini' => ['images/desktop.ini'],
+        ];
+    }
+
     public function testMediaDirectoryCustomization()
     {
         Hyde::setMediaDirectory('custom_media');

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use Hyde\Hyde;
-use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Collection;
@@ -38,13 +37,11 @@ trait HasMediaFiles
             $file = MediaFile::make($path);
 
             return [$file->getIdentifier() => $file];
-        });
+        })->filter(fn (MediaFile $file, string $identifier): bool => MediaFile::isPublishable($identifier));
     }
 
     protected static function getMediaFiles(): array
     {
-        return Filesystem::findFiles(Hyde::getMediaDirectory(),
-            Config::getArray('hyde.media_extensions', MediaFile::EXTENSIONS), recursive: true
-        )->all();
+        return Filesystem::findFiles(Hyde::getMediaDirectory(), recursive: true)->all();
     }
 }

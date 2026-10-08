@@ -190,6 +190,40 @@ class RealtimeCompilerTest extends TestCase
         }
     }
 
+    public function testServesTheSameMediaFilesThatTheBuildPublishes(): void
+    {
+        $files = [
+            'parity/report.pdf' => true,
+            'parity/fonts/inter.woff2' => true,
+            'parity/nested/data.json' => true,
+            'parity/Thumbs.db' => false,
+            'parity/DESKTOP.INI' => false,
+            'parity/.hidden' => false,
+            'parity/.well-known/security.txt' => false,
+            'parity/.git/config' => false,
+            'parity/CVS/Entries' => false,
+        ];
+
+        foreach (array_keys($files) as $file) {
+            Filesystem::ensureDirectoryExists(dirname("_media/$file"));
+            Filesystem::put("_media/$file", 'contents');
+        }
+
+        try {
+            $published = (new \Hyde\Foundation\Kernel\Filesystem(Hyde::getInstance()))->assets();
+
+            foreach ($files as $file => $expected) {
+                $this->mockCompilerRoute("media/$file");
+                $response = (new HttpKernel())->handle(new Request());
+
+                $this->assertSame($expected, $published->has($file), "Unexpected build discovery result for [$file]");
+                $this->assertSame($expected ? 200 : 404, $response->statusCode, "Unexpected serve result for [$file]");
+            }
+        } finally {
+            Filesystem::deleteDirectory('_media/parity');
+        }
+    }
+
     public function testThrowsRouteNotFoundExceptionForMissingRoute()
     {
         $this->mockCompilerRoute('missing');

@@ -26,6 +26,10 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
         }
 
         foreach (static::assetMap() as $sourcePath => $mediaFile) {
+            if (! str_contains($html, $sourcePath)) {
+                continue;
+            }
+
             $patterns = [
                 sprintf('<img src="%s"', $sourcePath),
                 sprintf('<img src="/%s"', $sourcePath),

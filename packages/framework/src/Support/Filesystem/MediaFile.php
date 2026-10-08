@@ -16,6 +16,14 @@ use function Hyde\unslash;
 use function Hyde\path_join;
 use function Hyde\trim_slashes;
 use function array_merge;
+use function array_pop;
+use function explode;
+use function in_array;
+use function sprintf;
+use function str_replace;
+use function str_starts_with;
+use function strtolower;
+use function trim;
 
 /**
  * File abstraction for a project media file.
@@ -24,8 +32,11 @@ use function array_merge;
  */
 class MediaFile extends ProjectFile implements Stringable
 {
-    /** @var array<string> The default extensions for media types */
-    final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'webp', 'gif', 'ico', 'css', 'js'];
+    /** @var array<string> Operating system metadata files that are never published, compared case-insensitively */
+    protected const IGNORED_FILENAMES = ['thumbs.db', 'desktop.ini'];
+
+    /** @var array<string> Version control directories that are never published, matching Symfony Finder's exclusions */
+    protected const VCS_DIRECTORIES = ['.svn', '_svn', 'CVS', '_darcs', '.arch-params', '.monotone', '.bzr', '.git', '.hg'];
 
     protected readonly int $length;
     protected readonly string $mimeType;
@@ -62,11 +73,21 @@ class MediaFile extends ProjectFile implements Stringable
     /**
      * Get or create a media file instance from the HydeKernel for the given file.
      *
-     * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist in the `_media` source directory.
+     * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist in the `_media` source directory, or is not published to the site.
      */
     public static function get(string $path): MediaFile
     {
-        return Hyde::assets()->get($path) ?? static::make($path);
+        $file = Hyde::assets()->get($path) ?? static::make($path);
+
+        if (! static::isPublishable($file->getIdentifier())) {
+            throw new FileNotFoundException($file->getPath(), sprintf(
+                'File [%s] is not published to the built site, so it cannot be used as an asset. '
+                .'Dotfiles, version control directories, Thumbs.db, and desktop.ini are excluded from the media directory.',
+                $file->getPath()
+            ));
+        }
+
+        return $file;
     }
 
     /**
@@ -87,6 +108,31 @@ class MediaFile extends ProjectFile implements Stringable
     public static function files(): array
     {
         return static::all()->keys()->all();
+    }
+
+    /**
+     * Determine whether a file in the media directory is published to the site.
+     *
+     * Shared by the build and the realtime compiler, which calls it before the application boots,
+     * so it must not depend on application state.
+     *
+     * @internal
+     *
+     * @param  string  $path  The file path relative to the media source directory.
+     */
+    public static function isPublishable(string $path): bool
+    {
+        $segments = explode('/', trim(str_replace('\\', '/', $path), '/'));
+        $filename = array_pop($segments);
+
+        foreach ($segments as $directory) {
+            if (str_starts_with($directory, '.') || in_array($directory, static::VCS_DIRECTORIES, true)) {
+                return false;
+            }
+        }
+
+        return $filename !== '' && ! str_starts_with($filename, '.')
+            && ! in_array(strtolower($filename), static::IGNORED_FILENAMES, true);
     }
 
     /**

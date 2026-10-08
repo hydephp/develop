@@ -47,6 +47,8 @@ git commit -m "Pre-upgrade backup before HydePHP v3.0"
 
 //
 
+>warning If your published `config/hyde.php` has a `media_extensions` entry, delete it **before** updating your Composer dependencies. The entry references the removed `MediaFile::EXTENSIONS` constant, so the application fails to load, including during `composer update`, until it is gone. Files in `_media` are no longer filtered by extension, so the option has no replacement. See [Step 13](#step-13-review-the-contents-of-your-media-directory).
+
 ### Update Node Dependencies
 
 HydePHP v3 upgrades the bundled `vite` dependency from v7 to v8. Update your `package.json` `devDependencies` to require the new major version:
@@ -439,10 +441,17 @@ Move those files into the `_static` directory, which is copied verbatim to the s
 
 The `hyde.safe_output_directories` option no longer exists, and the build no longer asks for confirmation before emptying an unfamiliar output directory. Delete the entry from your `config/hyde.php`. Take the chance to double-check your `hyde.output_directory` if you build somewhere other than `_site`, since everything in that directory is now removed on every build.
 
+## Step 13: Review the Contents of Your Media Directory
+
+`_media` is now a passthrough directory: files are no longer filtered by extension, and are published to `_site/media` regardless of their type.
+
+>warning This changes what you deploy. **Review the contents of `_media` before upgrading.** Any normal file stored there, such as design source files, notes, exports, or source maps, will now be publicly accessible on your built site. Move anything that should not be public out of `_media`.
+
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
 
+- [ ] Removed any `media_extensions` entry from `config/hyde.php` before updating Composer dependencies
 - [ ] Reviewed `markdown.allow_html` and `markdown.enable_blade` and explicitly selected the appropriate trust policy
 - [ ] Replaced any `php hyde rebuild <path>` usage with `StaticPageBuilder::handle()` or a full `php hyde build`
 - [ ] Moved calls to `Redirect::create()` or `Redirect::store()` into the `hyde.redirects` configuration array
@@ -456,6 +465,7 @@ Use this checklist to track your upgrade progress:
 - [ ] Compared pages against your old site if you have custom CSS for code blocks or their labels
 - [ ] Checked `_posts` for drafts and blog posts dated in the future, and set up recurring builds if scheduling posts
 - [ ] Moved manually maintained files out of the output directory and into `_static`
+- [ ] Reviewed `_media` and moved out anything that shouldn't be public
 
 ## Troubleshooting
 

@@ -82,7 +82,7 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
         (new Filesystem(Hyde::getInstance()))->assets();
 
-        $mock->shouldHaveReceived('handle')->with('_media', MediaFile::EXTENSIONS, true);
+        $mock->shouldHaveReceived('handle')->with('_media', false, true);
     }
 
     public function testItSupportsCustomMediaDirectory()
@@ -93,18 +93,38 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
         (new Filesystem(Hyde::getInstance()))->assets();
 
-        $mock->shouldHaveReceived('handle')->with('assets', MediaFile::EXTENSIONS, true);
+        $mock->shouldHaveReceived('handle')->with('assets', false, true);
     }
 
-    public function testItSupportsCustomExtensions()
+    public function testItIgnoresThumbsDbAndDesktopIniRegardlessOfCase()
     {
-        self::mockConfig(['hyde.media_extensions' => ['gif', 'svg']]);
+        $this->mockFileFinder([
+            '_media/Thumbs.db',
+            '_media/thumbs.db',
+            '_media/Desktop.ini',
+            '_media/desktop.ini',
+            '_media/image.png',
+        ]);
 
-        $mock = $this->mockFileFinder();
+        $assets = (new Filesystem(Hyde::getInstance()))->assets();
 
-        (new Filesystem(Hyde::getInstance()))->assets();
+        $this->assertCount(1, $assets);
+        $this->assertTrue($assets->has('image.png'));
+    }
 
-        $mock->shouldHaveReceived('handle')->with('_media', ['gif', 'svg'], true);
+    public function testItIgnoresFilesThatAreNotPublishable()
+    {
+        $this->mockFileFinder([
+            '_media/.gitkeep',
+            '_media/.hidden/file.txt',
+            '_media/.git/config',
+            '_media/CVS/Entries',
+            '_media/fonts/inter.woff2',
+        ]);
+
+        $assets = (new Filesystem(Hyde::getInstance()))->assets();
+
+        $this->assertSame(['fonts/inter.woff2'], $assets->keys()->all());
     }
 
     public function testDiscoverMediaFilesWithEmptyResult()
@@ -131,10 +151,10 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
         $this->assertInstanceOf(MediaFile::class, $result->get('document.pdf'));
     }
 
-    protected function mockFileFinder(): MockInterface
+    protected function mockFileFinder(array $files = []): MockInterface
     {
         $mock = Mockery::mock(FileFinder::class);
-        $mock->shouldReceive('handle')->andReturn(collect());
+        $mock->shouldReceive('handle')->andReturn(collect($files));
         app()->instance(FileFinder::class, $mock);
 
         return $mock;
