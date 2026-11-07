@@ -15,7 +15,8 @@ use function collect;
 use function Hyde\normalize_slashes;
 use function Hyde\path_join;
 use function file_exists;
-use function str_replace;
+use function strlen;
+use function substr;
 use function array_map;
 use function is_array;
 use function str_starts_with;
@@ -90,8 +91,14 @@ class Filesystem
      */
     public function pathToRelative(string $path): string
     {
-        return normalize_slashes(str_starts_with($path, $this->path())
-            ? unslash(str_replace($this->path(), '', $path))
+        $basePath = $this->path();
+
+        $isWithinBasePath = $path === $basePath
+            || str_starts_with($path, $basePath.'/')
+            || str_starts_with($path, $basePath.'\\');
+
+        return normalize_slashes($isWithinBasePath
+            ? unslash(substr($path, strlen($basePath)))
             : $path);
     }
 
