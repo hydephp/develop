@@ -339,6 +339,28 @@ class FilesystemTest extends UnitTestCase
         $this->assertSame('foo/bar.md', Hyde::pathToRelative('foo/bar.md'));
     }
 
+    public function testPathToRelativeHelperOnlyStripsTheLeadingBasePath()
+    {
+        Hyde::getInstance()->setBasePath('/app');
+
+        $this->assertSame('_media/app.css', Hyde::pathToRelative('/app/_media/app.css'));
+        $this->assertSame('_media/app/app.css', Hyde::pathToRelative('/app/_media/app/app.css'));
+    }
+
+    public function testPathToRelativeHelperDoesNotModifyPathsThatMerelyShareAPrefixWithTheBasePath()
+    {
+        Hyde::getInstance()->setBasePath('/app');
+
+        $this->assertSame('/applesauce/foo.css', Hyde::pathToRelative('/applesauce/foo.css'));
+    }
+
+    public function testPathToRelativeHelperReturnsEmptyStringForTheBasePathItself()
+    {
+        Hyde::getInstance()->setBasePath('/app');
+
+        $this->assertSame('', Hyde::pathToRelative('/app'));
+    }
+
     public function testPathToRelativeHelperDoesNotModifyNonProjectPaths()
     {
         $testStrings = [

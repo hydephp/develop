@@ -33,6 +33,7 @@ _Changes to the realtime compiler requires an update to v4.5 or later of the `hy
 - for now removed features.
 
 ### Fixed
+- Fixed media assets and other project files failing to resolve when the project's base path occurs again later in the file path, for example a project in `/app` using `_media/app.css` in https://github.com/hydephp/develop/pull/2625 (fixes https://github.com/hydephp/hyde/issues/334)
 - Fixed Markdown syntax being displayed in the sidebar table of contents in https://github.com/hydephp/develop/pull/2607
 - Fixed Markdown-to-plain-text conversion consuming unrelated content after ATX headings and stripping literal trailing hashes in https://github.com/hydephp/develop/pull/2590
 - Improved documentation page detection in MarkdownService so it works for child classes in https://github.com/hydephp/develop/pull/2332
