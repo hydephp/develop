@@ -40,6 +40,7 @@ This serves two purposes:
 - Removed the `components/filepath-label.blade.php` view, as the label markup now lives in the code block view. If this was published, port any customizations into `components/markdown/code-block.blade.php`.
 
 ### Fixed
+- Fixed media assets and other project files failing to resolve when the project's base path occurs again later in the file path, for example a project in `/app` using `_media/app.css` in https://github.com/hydephp/develop/pull/2625 (fixes https://github.com/hydephp/hyde/issues/334)
 - Fixed Markdown-to-plain-text conversion consuming unrelated content after ATX headings and stripping literal trailing hashes in https://github.com/hydephp/develop/pull/2590
 - Improved documentation page detection in MarkdownService so it works for child classes in https://github.com/hydephp/develop/pull/2332
 - Fixed bug causing build manifest to not generate when a site has dynamic pages in https://github.com/hydephp/develop/pull/2450
